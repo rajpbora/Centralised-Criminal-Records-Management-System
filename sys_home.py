@@ -18,6 +18,7 @@ cursor = connection.cursor()
 def system_home(k):
     photoPath=''
     t2 = Tk()
+    t2.configure(background='white')
     
     w, h = t2.winfo_screenwidth(), t2.winfo_screenheight()
     t2.geometry("%dx%d+0+0" % (w, h))
@@ -40,7 +41,8 @@ def system_home(k):
         b = str(datetime.datetime.now())
         cursor.execute("UPDATE POLICE set LASTLOGIN=? where POLICEID=?", (b, k,))
         connection.commit()
-        os.system('python login_page_first.py')
+        import subprocess
+        subprocess.call("python login_page_first.py")
         
     def last():
         q = cursor.execute("SELECT * FROM POLICE where POLICEID=?", (k,))
@@ -51,19 +53,24 @@ def system_home(k):
     fil = tkFont.Font(family="Times New Roman", size=22)
     v = StringVar(t2)
 
-    empty_box_1 = Label(t2, font=tkFont.Font(family="Times New Roman", size=150), borderwidth=2,relief="solid").place(x=50, y=138,width=472,height=360)
-    finishing_1 = Label(t2, text='DATABASE CONTROLS', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,relief="solid").place(x=136, y=80, width=300, height=50)
-    user_detail_1 = Label(t2, text='Name : ', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid", width=13, height=2).place(x=790, y=425)
-    user_detail_2 = Label(t2, text='ID : ', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid", width=13, height=2).place(x=790, y=485)
-    user_detail_3 = Label(t2, text='Date of Birth : ', font=tkFont.Font(family="Times New Roman", size=18),borderwidth=2, relief="solid", width=13, height=2).place(x=790, y=545)
-    user_detail_4 = Label(t2, text='Rank : ', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid", width=13, height=2).place(x=790, y=605)
-    user_detail_5 = Label(t2, text='Email ID : ', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid", width=13, height=2).place(x=790, y=665)
+    name=Label(t2, text="S Y S T E M    A D M I N I S T R A T O R", fg='grey',font=tkFont.Font(family="Times New Roman", size=40), borderwidth=2, relief="solid")
+    name.place(x=0, y=30, width=w, height=100)
+
+    user_detail_1 = Label(t2, text='Name', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid")
+    user_detail_2 = Label(t2, text='Police ID', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid")
+    user_detail_3 = Label(t2, text='Date of Birth', font=tkFont.Font(family="Times New Roman", size=18),borderwidth=2, relief="solid")
+    user_detail_4 = Label(t2, text='Email ID', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2,relief="solid")
+    user_detail_1.place(x=825, y=470, width=200, height=50)
+    user_detail_2.place(x=825, y=540, width=200, height=50)
+    user_detail_3.place(x=825, y=610, width=200, height=50)
+    user_detail_4.place(x=825, y=680, width=200, height=50)
+
     v = StringVar(t2)
-    add_user = Button(t2, text='ADD NEW USER',font=fil, command=add_user, borderwidth=2, relief="solid", width=26, height=2)
-    update_user = Button(t2, text='UPDATE USER INFORMATION',font=fil, command=update_user, borderwidth=2, relief="solid",width=26, height=2)
-    delete_user = Button(t2, text='DELETE A USER',font=fil, command=delete_user, borderwidth=2, relief="solid", width=26, height=2)
-    logout_user = Button(t2, text='LOGOUT',font=fil, command=logout, borderwidth=2, relief="solid", width=25, height=2)
-    last_button = Button(t2, text='LAST LOGIN',font=fil, command=last, borderwidth=2, relief="solid", width=25,height=2)
+    add_user = Button(t2, text='ADD USER',font=fil, command=add_user, relief="raised")
+    update_user = Button(t2, text='EDIT USER',font=fil, command=update_user, relief="raised")
+    delete_user = Button(t2, text='DELETE USER',font=fil, command=delete_user, relief="raised")
+    logout_user = Button(t2, text='LOGOUT',font=fil, command=logout, relief="raised")
+    last_button = Button(t2, text='LAST LOGIN',font=fil, command=last, relief="raised")
     
     x=cursor.execute("SELECT * FROM POLICE where POLICEID=?", (k,))
     y=cursor.fetchall()
@@ -76,26 +83,28 @@ def system_home(k):
         file.write(photo)
 
     t2.load11 = Image.open(photoPath)
-    t2.load11 = t2.load11.resize((250, 350), Image.ANTIALIAS)
+    t2.load11 = t2.load11.resize((250, 250), Image.ANTIALIAS)
     t2.photo11 = ImageTk.PhotoImage(t2.load11, master=t2)
-    t2.img11 = Label(t2, image=t2.photo11)
+    t2.img11 = Label(t2, image=t2.photo11,borderwidth=2, relief="solid")
     t2.img11.image = t2.photo11
+    t2.img11.place(x=1025, y=190, width=250, height=250)
 
-    add_user.place(x=70, y=180)
-    delete_user.place(x=70, y=280)
-    update_user.place(x=70, y=380)
-    t2.img11.place(x=1000, y=60)
-    logout_user.place(x=80, y=650)
-    last_button.place(x=80, y=550)
+    add_user.place(x=170, y=200, width=400, height=80)
+    delete_user.place(x=170, y=310, width=400, height=80)
+    update_user.place(x=170, y=420, width=400, height=80)
+    last_button.place(x=170, y=530, width=400, height=80)
+    logout_user.place(x=170, y=640, width=400, height=80)
 
     cursor.execute("SELECT * FROM POLICE where POLICEID=?", (k,))
     for row in cursor.fetchall():
-        l_name = Label(t2, text=row[2].upper() + ' ' + row[3].upper() + ' ' + row[4].upper(), anchor='w', font=tkFont.Font(family="Times New Roman", size=20), borderwidth=2, relief="solid", width=30,height=2).place(x=1000, y=425)
-        l_police_id = Label(t2, text=row[0], font=tkFont.Font(family="Times New Roman", size=20), anchor='w', borderwidth=2,relief="solid", width=30, height=2).place(x=1000, y=485)
-        l_dob = Label(t2, text=row[11], font=tkFont.Font(family="Times New Roman", size=20), anchor='w', borderwidth=2,relief="solid", width=30, height=2).place(x=1000, y=545)
-        l_rank = Label(t2, text=row[13], font=tkFont.Font(family="Times New Roman", size=20), anchor='w', borderwidth=2,relief="solid", width=30, height=2).place(x=1000, y=605)
-        l_email_id = Label(t2, text=row[7].upper(), font=tkFont.Font(family="Times New Roman", size=20), anchor='w', borderwidth=2,relief="solid", width=30, height=2).place(x=1000, y=665)
-    
+        l_name = Label(t2, text=row[2].upper() + ' ' + row[3].upper() + ' ' + row[4].upper(), anchor='w', font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+        l_police_id = Label(t2, text=row[0], font=tkFont.Font(family="Times New Roman", size=18), anchor='w', borderwidth=2,relief="solid")
+        l_dob = Label(t2, text=row[11], font=tkFont.Font(family="Times New Roman", size=18), anchor='w', borderwidth=2,relief="solid")
+        l_email_id = Label(t2, text=row[7], font=tkFont.Font(family="Times New Roman", size=18), anchor='w', borderwidth=2,relief="solid")
+    l_name.place(x=1050, y=470, width=400, height=50)
+    l_police_id.place(x=1050, y=540, width=400, height=50)
+    l_dob.place(x=1050, y=610, width=400, height=50)
+    l_email_id.place(x=1050, y=680, width=400, height=50)
     t2.title('System Administrator - '+row[2] + ' ' + row[3]+ ' ' + row[4])
 
     mainloop()

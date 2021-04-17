@@ -12,22 +12,7 @@ def selcomp(p):
 
     t=tk.Tk()
     t.title('NCDS - Select Complaint ')
-    w, h = t.winfo_screenwidth(), t.winfo_screenheight()
-    t.geometry("%dx%d+0+0" % (w, h))
-
-    u=cursor.execute('SELECT COMPLAINT_NO from COMPLAINT where STATUS = "Complaint Filed"')
-    mcq=u.fetchall()
-    complist=[]
-    try:
-        for i in range(len(mcq)):
-            complist.append(mcq[i][0])
-    except:
-        complist=['NO COMPLAINTS']   
-    v = tk.StringVar(t)
-    v.set('ADD FOR')
-    opti = tk.OptionMenu(t, v, *complist)
-    opti.place(x=615, y=300, width=350, height=80)
-    opti.configure( relief="solid")
+    t.geometry('600x400')
 
     def nex():
         xyz=v.get()
@@ -43,7 +28,33 @@ def selcomp(p):
         from acp_home import acp_home
         acp_home(p)
 
-    submit = Button(t, text='Submit', command=nex, borderwidth=2, relief="solid")
-    submit.place(x=680, y=450, width=200, height=70)
-    back_button = Button(t, text='BACK', command=back, borderwidth=2, relief="solid", width=10, height=2).place(x=50, y=50)
+    u=cursor.execute('SELECT COMPLAINT_NO from COMPLAINT where STATUS = "Complaint Filed"')
+    mcq=u.fetchall()
+
+    if len(mcq)!=0:
+        complist = []
+        for i in range(len(mcq)):
+            complist.append(mcq[i][0])
+
+        v = tk.StringVar(t)
+        v.set('ADD FOR')
+        opti = tk.OptionMenu(t, v, *complist)
+        opti.place(x=200, y=100, width=225, height=70)
+        opti.configure(relief="solid")
+        menu = t.nametowidget(opti.menuname)
+        menu.config(font=tkFont.Font(family="Times New Roman", size=16))
+        opti.configure(relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
+
+        submit = Button(t, text='SUBMIT', command=nex, borderwidth=4, relief="solid",
+                        font=tkFont.Font(family="Times New Roman", size=16))
+        submit.place(x=225, y=200, width=175, height=50)
+
+    else:
+        fi = tkFont.Font(family="Times New Roman", size=16)
+        fm = Label(t, text='NO COMPLAINTS', font=fi, borderwidth=2, relief="solid")
+        fm.place(x=200, y=100, width=225, height=70)
+
+    back = Button(t, text='<--', command=back, borderwidth=4, relief="solid")
+    back.place(x=20, y=20, width=50, height=30)
+
     mainloop()

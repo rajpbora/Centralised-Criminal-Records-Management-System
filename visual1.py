@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 import sqlite3
+import tkinter.font as tkFont
 connection = sqlite3.connect('NCD.db')
 cursor = connection.cursor()
 def worst(wi):
@@ -8,21 +9,24 @@ def worst(wi):
     root.geometry('600x400')
     root.title("VISUALS")
 
-    OptionList = ['OPEN AND CLOSED CASES', 'CRIME DISTRIBUTION CHART', 'CRIME RATE','YOUR OPEN AND CLOSED CASES']
+    OptionList = ['OPEN & CLOSED CASES', 'CRIME DISTRIBUTION', 'CRIME RATE','MY OPEN & CLOSED CASES']
     v = tk.StringVar(root)
     v.set('SEARCH FOR')
     opt = tk.OptionMenu(root, v, *OptionList)
-    opt.place(x=100, y=100, width=200, height=70)
+    opt.place(x=200, y=100, width=225, height=70)
+    menu = root.nametowidget(opt.menuname)
+    menu.config(font=tkFont.Font(family="Times New Roman", size=10))
+    opt.configure(relief="solid", font=tkFont.Font(family="Times New Roman", size=10))
 
 
     def next():
-        if v.get() == 'OPEN AND CLOSED CASES':
+        if v.get() == 'OPEN & CLOSED CASES':
             from dashboard import bargraph
             bargraph()
-        elif v.get() == 'CRIME DISTRIBUTION CHART':
+        elif v.get() == 'CRIME DISTRIBUTION':
             from dashboard import piechart
             piechart()
-        elif v.get() == 'YOUR OPEN AND CLOSED CASES':
+        elif v.get() == 'MY OPEN & CLOSED CASES':
             from dashboard import bargraph2
             bargraph2(wi)
         elif v.get() == 'CRIME RATE':
@@ -41,7 +45,7 @@ def worst(wi):
 
 
     submit = Button(root, text='Submit', command=next, borderwidth=4, relief="solid")
-    submit.place(x=100, y=200, width=200, height=70)
+    submit.place(x=225, y=200, width=175, height=50)
     back = Button(root, text='<--', command=back, borderwidth=4, relief="solid")
     back.place(x=20, y=20, width=50, height=30)
 

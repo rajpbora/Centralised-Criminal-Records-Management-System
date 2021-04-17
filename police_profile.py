@@ -43,7 +43,8 @@ def police(j,photoPath):
     marital = Label(t, text=u[0][14], font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid")
     batch1 = Label(t, text=u[0][12], borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
     rank1 = Label(t, text=u[0][13], borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
-    pid = Label(t, text='POLICE_ID : '+u[0][0], borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
+    pid = Label(t, text='POLICE_ID', borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=14))
+    pid1 = Label(t, text=u[0][0], borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
     email = Label(t, text='Email_ID', borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=14))
     fname = Label(t, text='Name', borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=14))
     contact = Label(t, text='Mobile_Number', borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=14))
@@ -54,41 +55,42 @@ def police(j,photoPath):
     address1 = Label(t, text=u[0][9], font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid")
     dob = Label(t, text='Date of Birth', font=tkFont.Font(family="Times New Roman", size=14), borderwidth=2, relief="solid")
 
-    fname.place(x=50, y=50, width=200, height=70)
-    fname1.place(x=275, y=50, width=750, height=70)
+    fname.place(x=50, y=120, width=200, height=50)
+    fname1.place(x=275, y=120, width=400, height=50)
 
-    lgender.place(x=50, y=150, width=200, height=70)
-    gender.place(x=275, y=150, width=250, height=70)
+    lgender.place(x=50, y=260, width=200, height=50)
+    gender.place(x=275, y=260, width=400, height=50)
 
-    dob.place(x=550, y=150, width=200, height=70)
-    dob1.place(x=775, y=150, width=250, height=70)
+    dob.place(x=50, y=190, width=200, height=50)
+    dob1.place(x=275, y=190, width=400, height=50)
 
-    marital.place(x=275, y=250, width=250, height=70)
-    lmarital.place(x=50, y=250, width=200, height=70)
-    
-    contact.place(x=550, y=250, width=200, height=70)
-    contact1.place(x=775, y=250, width=250, height=70)
+    marital.place(x=275, y=330, width=400, height=50)
+    lmarital.place(x=50, y=330, width=200, height=50)
 
-    email.place(x=50, y=350, width=200, height=70)
-    email1.place(x=275, y=350, width=250, height=70)
+    contact.place(x=50, y=400, width=200, height=50)
+    contact1.place(x=275, y=400, width=400, height=50)
 
-    juris.place(x=50, y=450, width=200, height=70)
-    juris1.place(x=275, y=450, width=250, height=70)
+    email.place(x=50, y=470, width=200, height=50)
+    email1.place(x=275, y=470, width=400, height=50)
 
-    batch.place(x=550, y=350, width=200, height=70)
-    batch1.place(x=775, y=350, width=250, height=70)
-    rank.place(x=550, y=450, width=200, height=70)
-    rank1.place(x=775, y=450, width=250, height=70)
+    address.place(x=50, y=540, width=200, height=50)
+    address1.place(x=275, y=540, width=400, height=50)
 
-    address.place(x=50, y=550, width=200, height=70)
-    address1.place(x=275, y=550, width=1100, height=70)
+    juris.place(x=825, y=540, width=200, height=50)
+    juris1.place(x=1050, y=540, width=400, height=50)
 
-    back_button = Button(t, text='GO BACK', command=back, borderwidth=4, relief="solid", width=26, height=2, font=tkFont.Font(family="Times New Roman", size=16))
-    back_button.place(x=50, y=675, width=200 , height=70)
+    batch.place(x=825, y=610, width=200, height=50)
+    batch1.place(x=1050, y=610, width=400, height=50)
+    rank.place(x=825, y=470, width=200, height=50)
+    rank1.place(x=1050, y=470, width=400, height=50)
 
-    pid.place(x=1070, y=400, width=300, height=70)
+    pid.place(x=825, y=400, width=200, height=50)
+    pid1.place(x=1050, y=400, width=400, height=50)
+    back_button = Button(t, text='GO BACK', font=tkFont.Font(family="Times New Roman", size=16), command=back,
+                         borderwidth=4, relief="solid")
+    back_button.place(x=250, y=690, width=250, height=50)
 
-    t.img1.place(x=1070, y=50, width=300, height=300)
+    t.img1.place(x=1025, y=50, width=250, height=250)
 
 
     mainloop()

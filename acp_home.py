@@ -8,7 +8,6 @@ from your_profile import police
 import sqlite3
 import os
 
-
 def acp_home(j):
     connection = sqlite3.connect('NCD.db')
     cursor = connection.cursor()

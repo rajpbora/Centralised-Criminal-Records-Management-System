@@ -16,74 +16,91 @@ def best(p,k,k1,k2):
     def edit():
        t.destroy()
        best1(p,k,k1,k2)
-       #os.system('python open_crimeedit.py')
-       #return
+
     def back():
         t.destroy()
         from acp_home import acp_home
         acp_home(p)
 
-    fih = tkFont.Font(family="Times New Roman", size=20)
+### Defining the Labels
+    fir_no = Label(t, text='FIR Number', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+                   relief="solid")
+    ci = Label(t, text='Criminal ID', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+               relief="solid")
+    doc = Label(t, text='Date of Crime', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+                relief="solid")
+    poc = Label(t, text='Place of Crime', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+                relief="solid")
+    ch = Label(t, text='Charges', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid")
+    nod = Label(t, text='No. of Deaths', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+                relief="solid")
+    noi = Label(t, text='No. of Injured', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+                relief="solid")
+    da = Label(t, text='Cost of Damages', font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2,
+               relief="solid")
 
-    noi=Label(t, text='NUMBER OF INJURIES',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
-    nod=Label(t, text='NUMBER OF DEATHS',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
+### Placing the Labels
+    fir_no.place(x=50, y=50, width=200, height=50)
+    ci.place(x=50, y=120, width=200, height=50)
+    doc.place(x=50, y=190, width=200, height=50)
+    poc.place(x=50, y=260, width=200, height=50)
+    ch.place(x=50, y=330, width=200, height=50)
+    nod.place(x=50, y=400, width=200, height=50)
+    noi.place(x=50, y=470, width=200, height=50)
+    da.place(x=50, y=540, width=200, height=50)
 
-    noi1=Label(t,text=k[0][2],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
-    nod1=Label(t,text=k[0][3],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
+ ### Defining the Labels with entries
+    fir_no1=Label(t,text=k[0][0],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+    doc1=Label(t,text=k[0][4],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+    poc1=Label(t,text=k[0][5],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+    nod1=Label(t,text=k[0][3],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+    noi1=Label(t,text=k[0][2],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
+    da1=Label(t,text=k[0][1],font=tkFont.Font(family="Times New Roman", size=18), borderwidth=2, relief="solid")
 
-    fir_no=Label(t, text='FIR NUMBER',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
-    poc=Label(t, text='PLACE OF CRIME',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
-    fir_no1=Label(t,text=k[0][0],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
-    poc1=Label(t,text=k[0][5],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
-
-    OptionList=[k1[0][1]]
+    OptionList=[]
+    c = 0
+    for i00 in k1:
+        OptionList.append(k1[c][1])
+        c=c+1
     v = tk.StringVar(t)
-    v.set('CRIMINAL ID')
-    c_id= tk.OptionMenu(t, v, *OptionList)
-    doc=Label(t, text='DATE OF CRIME',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
-    doc1=Label(t,text=k[0][4],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
+    v.set('IDs')
+    ci1 = tk.OptionMenu(t, v, *OptionList)
 
-    OptionList2=[k2[0][2]]
-    OptionList3=[k2[0][1]]
+    menu = t.nametowidget(ci1.menuname)
+    menu.config(font=tkFont.Font(family="Times New Roman", size=14))
+    ci1.configure(font=tkFont.Font(family="Times New Roman", size=18), relief="solid")
+
+    OptionList2=[]
+    c = 0
+    for i11 in k2:
+        OptionList2.append(str(k2[c][1])+" "+str(k2[c][2]))
+        c=c+1
     v2 = tk.StringVar(t)
-    v2.set('SECTION NO')
-    sn= tk.OptionMenu(t, v2, *OptionList2)
-    v3 = tk.StringVar(t)
-    v3.set('PENAL CODE')
-    pc=tk.OptionMenu(t, v3, *OptionList3)
+    v2.set('Charges')
+    ch1= tk.OptionMenu(t, v2, *OptionList2)
 
-    da=Label(t, text='DAMAGE AMOUNT',font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid",width=18,height=2)
-    da1=Label(t,text=k[0][1],font=tkFont.Font(family="Times New Roman", size=16), borderwidth=2, relief="solid", width=15,height=2)
-    editt = Button(t, text='EDIT',font=tkFont.Font(family="Times New Roman", size=20), command=edit, borderwidth=2, relief="solid",width=20,height=2)
-    back_button = Button(t, text='GO BACK',font=fih, command=back, borderwidth=2, relief="solid", width=20, height=2).place(
-        x=950, y=700)
+    menu = t.nametowidget(ch1.menuname)
+    menu.config(font=tkFont.Font(family="Times New Roman", size=14))
+    ch1.configure(font=tkFont.Font(family="Times New Roman", size=18), relief="solid")
 
+### Placing the Labels with entries
+    fir_no1.place(x=275, y=50, width=400, height=50)
+    ci1.place(x=275, y=120, width=400, height=50)
+    doc1.place(x=275, y=190, width=400, height=50)
+    poc1.place(x=275, y=260, width=400, height=50)
+    ch1.place(x=275, y=330, width=400, height=50)
+    nod1.place(x=275, y=400, width=400, height=50)
+    noi1.place(x=275, y=470, width=400, height=50)
+    da1.place(x=275, y=540, width=400, height=50)
 
+### Defining the buttons
+    back_button = Button(t, text='GO BACK', font=tkFont.Font(family="Times New Roman", size=16), command=back,
+                         borderwidth=4, relief="solid")
+    editt = Button(t, text='EDIT', command=edit, font=tkFont.Font(family="Times New Roman", size=20),
+                     borderwidth=4, relief="solid")
 
-
-    noi.place(x=50, y=490)
-    nod.place(x=50, y=430)
-    # name1.place(x=225, y=150, width=150, height=70)
-    noi1.place(x=300, y=490)
-    nod1.place(x=300, y=430)
-    fir_no.place(x=50, y=10)
-
-    fir_no1.place(x=300, y=10)
-
-    poc.place(x=50, y=205)
-    poc1.place(x=300, y=205)
-
-    pc.place(x=50, y=270,width=300,height=70)
-
-    sn.place(x=50, y=350,width=300,height=70)
-
-    c_id.place(x=50, y=65,width=300,height=70)
-
-
-    da.place(x=50, y=555)
-    da1.place(x=300, y=555)
-    doc.place(x=50, y=140)
-    doc1.place(x=300, y=140)
-    editt.place(x=950, y=600)
+### Placing the buttons
+    back_button.place(x=250, y=690, width=250, height=50)
+    editt.place(x=650, y=690, width=250, height=50)
 
     mainloop()

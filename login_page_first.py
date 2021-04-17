@@ -15,37 +15,44 @@ connection = sqlite3.connect('NCD.db')
 cursor = connection.cursor()
 xtr=str(datetime.datetime.now())
 
+
 cursor.execute('CREATE TABLE IF NOT EXISTS POLICE(POLICEID TEXT PRIMARY KEY CHECK(POLICEID <> ""), PASSWORD TEXT NOT NULL CHECK(PASSWORD <> ""),FNAME TEXT NOT NULL CHECK(FNAME <> ""), MNAME TEXT, LNAME TEXT NOT NULL CHECK(LNAME <> ""), PHOTO BLOB NOT NULL, LASTLOGIN TEXT, EMAILID TEXT NOT NULL CHECK(EMAILID <> ""), JURISDICTION TEXT NOT NULL CHECK(JURISDICTION <> ""), ADDRESS TEXT NOT NULL CHECK(ADDRESS <> ""), GENDER TEXT NOT NULL CHECK(GENDER <> ""), DOB TEXT NOT NULL CHECK(DOB <> ""), BATCH TEXT NOT NULL CHECK(BATCH <> ""), RANK TEXT NOT NULL CHECK(RANK <> ""), MARITALSTATUS TEXT NOT NULL)')
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS POLICE1(POLICEID TEXT, CONTACT TEXT NOT NULL, FOREIGN KEY (POLICEID) REFERENCES POLICE(POLICEID))""")
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS COMPLAINT (COMPLAINT_NO text PRIMARY KEY, PLACEOFCRIME text NOT NULL CHECK(PLACEOFCRIME <> ''), TIMEOFCRIME text, CRIMEDESCRIPTION text, CITY text, POLICESTATION text, STATUS text, VFNAME text, VMNAME text, VLNAME text, AFNAME text, AMNAME text, ALNAME text, USERID text, FOREIGN KEY(USERID) REFERENCES CIVILIAN1(USERID))""")
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS CIVILIAN1 (USERID text PRIMARY KEY CHECK(USERID <> ''), PASSWORD text NOT NULL CHECK(PASSWORD <> ''), FNAME text, MNAME text, LNAME text, DOB text, GENDER text, MARITALSTATUS text, EMAILID text NOT NULL, OCCUPATION text, ADDRESS text, LASTLOGIN text, PHOTO blob)""")
+cursor.execute("""CREATE TABLE IF NOT EXISTS COMPLAINT (COMPLAINT_NO text PRIMARY KEY, PLACEOFCRIME text NOT NULL CHECK(PLACEOFCRIME <> ''), TIMEOFCRIME text NOT NULL CHECK(TIMEOFCRIME <> ""), CRIMEDESCRIPTION text NOT NULL CHECK(CRIMEDESCRIPTION <> ""), CITY text NOT NULL CHECK(CITY <> ""), POLICESTATION text, STATUS text, VFNAME text, VMNAME text, VLNAME text, AFNAME text, AMNAME text, ALNAME text, USERID text, FOREIGN KEY(USERID) REFERENCES CIVILIAN1(USERID))""")
+
+
+cursor.execute("""CREATE TABLE IF NOT EXISTS CIVILIAN1 (USERID text PRIMARY KEY CHECK(USERID <> ''), PASSWORD text NOT NULL CHECK(PASSWORD <> ''), FNAME text NOT NULL CHECK(FNAME <> ''), MNAME text NOT NULL CHECK(MNAME <> ''), LNAME text NOT NULL CHECK(LNAME <> ''), DOB text NOT NULL CHECK(DOB <> ''), GENDER text, MARITALSTATUS text NOT NULL CHECK(MARITALSTATUS <> ''), EMAILID TEXT NOT NULL CHECK(EMAILID <> ""), OCCUPATION text NOT NULL CHECK(OCCUPATION <> ''), ADDRESS text NOT NULL CHECK(ADDRESS <> ''), LASTLOGIN text, PHOTO blob)""")
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CIVILIAN2 (USERID text , CONTACT number,FOREIGN KEY (USERID) REFERENCES CIVILIAN1(USERID))')
 
-cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL(CRIMINALID number PRIMARY KEY, FNAME text, MNAME text, LNAME text, DOB text, BLOODGROUP text, STATUS text, PRIORITY number, GENDER text, PHOTO BLOB NOT NULL)')
 
-cursor.execute('CREATE TABLE IF NOT EXISTS CASE1 (CASENO number PRIMARY KEY, PENALCODETYPE text, SECTIONNUMBER number, POLICESTATION text, DESCRIPTION text NOT NULL, OPENDATE text NOT NULL, CLOSEDATE text, COMPLAINT_NO TEXT, FOREIGN KEY (COMPLAINT_NO) REFERENCES COMPLAINT(COMPLAINT_NO))')
-
-cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL3 (CRIMINALID text, CONTACT text, FOREIGN KEY (CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
+cursor.execute('CREATE TABLE IF NOT EXISTS CASE1 (CASENO number PRIMARY KEY, PENALCODETYPE text NOT NULL CHECK(PENALCODETYPE <> ""), SECTIONNUMBER number NOT NULL CHECK(SECTIONNUMBER <> "") , POLICESTATION text NOT NULL CHECK(POLICESTATION <> ""), DESCRIPTION text NOT NULL, OPENDATE text NOT NULL CHECK(OPENDATE <> ""), CLOSEDATE text, COMPLAINT_NO TEXT, FOREIGN KEY (COMPLAINT_NO) REFERENCES COMPLAINT(COMPLAINT_NO))')
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CASE2(CASENO number, POLICEID text, FOREIGN KEY (POLICEID) REFERENCES POLICE(POLICEID), FOREIGN KEY(CASENO) REFERENCES CASE1(CASENO))')
 
-cursor.execute('CREATE TABLE IF NOT EXISTS CASE3(CASENO number , VFNAME text, VMNAME text, VLNAME text, VAGE number, VADDRESS text, FOREIGN KEY (CASENO) REFERENCES CASE1(CASENO))')
+cursor.execute('CREATE TABLE IF NOT EXISTS CASE3(CASENO number , VFNAME text NOT NULL CHECK(VFNAME <> ""), VMNAME text, VLNAME text NOT NULL CHECK(VLNAME <> ""), VAGE number NOT NULL CHECK(VAGE <> ""), VADDRESS text, FOREIGN KEY (CASENO) REFERENCES CASE1(CASENO))')
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CASE4(CASENO number, FIRNO number, FOREIGN KEY(CASENO) REFERENCES CASE1(CASENO), FOREIGN KEY(FIRNO) REFERENCES CRIME(FIRNO))')
 
-cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL2(CRIMINALID text, ADDRESS text, FOREIGN KEY (CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
+
+cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL(CRIMINALID number PRIMARY KEY, FNAME text NOT NULL CHECK(FNAME <> ""), MNAME text, LNAME text NOT NULL CHECK(LNAME <> ""), DOB text NOT NULL CHECK(DOB <> ""), BLOODGROUP text, STATUS text NOT NULL CHECK(STATUS <> ""), PRIORITY number NOT NULL CHECK(PRIORITY <> ""), GENDER text NOT NULL CHECK(GENDER <> ""), PHOTO BLOB NOT NULL)')
+
+cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL3 (CRIMINALID text, CONTACT text, FOREIGN KEY (CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
+
+cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL2 (CRIMINALID text, ADDRESS text, FOREIGN KEY (CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CRIMINAL1 (CRIMINALID text, IDENTIFICATIONMARKS text,FOREIGN KEY (CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
+
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CRIME2 (FIRNO number, CRIMINALID number, FOREIGN KEY(FIRNO) REFERENCES CRIME(FIRNO), FOREIGN KEY(CRIMINALID) REFERENCES CRIMINAL(CRIMINALID))')
 
 cursor.execute('CREATE TABLE IF NOT EXISTS CRIME3 (FIRNO number, PENALCODETYPE text, SECTIONNUMBER number, FOREIGN KEY (FIRNO) REFERENCES CRIME(FIRNO))')
 
-cursor.execute( 'CREATE TABLE IF NOT EXISTS CRIME(FIRNO number PRIMARY KEY, DAMAGEAMOUNT number, INJURED number, DEATHS number, DATEOFCRIME text NOT NULL, PLACEOFCRIME text)')
+cursor.execute( 'CREATE TABLE IF NOT EXISTS CRIME(FIRNO number PRIMARY KEY, DAMAGEAMOUNT number NOT NULL CHECK(DAMAGEAMOUNT <> ""), INJURED number NOT NULL CHECK(INJURED <> ""), DEATHS number NOT NULL CHECK(DEATHS <> ""), DATEOFCRIME text NOT NULL CHECK(DATEOFCRIME <> ""), PLACEOFCRIME text NOT NULL CHECK(PLACEOFCRIME <> ""))')
+
 
 connection.commit()
 
@@ -60,42 +67,42 @@ t.geometry("%dx%d+0+0" % (w, h))
 def enter():
     getuid = uid.get()
     getpswd = pswd.get()
-    if v.get()=='Civilian':
+    if v.get()=='CIVILIAN':
         u = cursor.execute('SELECT USERID FROM CIVILIAN1 where USERID=(?) and PASSWORD=(?)', (getuid,getpswd))
         temp=u.fetchall()
-        if getuid == temp[0][0] and len(temp)>0:
-            tkinter.messagebox.showinfo('Title','Logged_In')
+        if len(temp)>0 and getuid == temp[0][0]:
+            tkinter.messagebox.showinfo('Alert','Authentication Successful')
             clear()
             t.destroy()
             civ_home(getuid)
         else:
-            tkinter.messagebox.showinfo('Alert','Incorrect Username or Password')
-    elif v.get()=='Police':
+            tkinter.messagebox.showinfo('Alert','Incorrect Username or Password. Please try again.')
+    elif v.get()=='POLICE':
         u = cursor.execute('SELECT POLICEID,RANK FROM POLICE where POLICEID=(?) and PASSWORD=(?)', (getuid,getpswd))
         temp=u.fetchall()
         if len(temp)>0:
             if getuid == temp[0][0]:
                 if temp[0][1] == 'ACP':
-                    tkinter.messagebox.showinfo('Title','Logged_In')
+                    tkinter.messagebox.showinfo('Alert','Authentication Successful')
                     clear()
                     t.destroy()
                     acp_home(getuid)
                 elif temp[0][1] == 'CONSTABLE':
-                    tkinter.messagebox.showinfo('Title','Logged_In')
+                    tkinter.messagebox.showinfo('Alert','Authentication Successful')
                     clear()
                     t.destroy()
                     const_home(getuid)
                 elif temp[0][1] == 'SYSTEM ADMINISTRATOR':
-                    tkinter.messagebox.showinfo('Title','Logged_In')
+                    tkinter.messagebox.showinfo('Alert','Authentication Successful')
                     clear()
                     t.destroy()
                     system_home(getuid)
                 else:
-                    tkinter.messagebox.showinfo('Alert','Incorrect Username or Password')
+                    tkinter.messagebox.showinfo('Alert','Incorrect Username or Password. Please try again.\nTo reset Password, Contact System Administrator.')
         else:
-            tkinter.messagebox.showinfo('Alert','Incorrect Username or Password')
+            tkinter.messagebox.showinfo('Alert','Incorrect Username or Password. Please try again.\nTo reset Password, Contact System Administrator.')
     else:
-        tkinter.messagebox.showinfo('Title','Choose User Type')
+        tkinter.messagebox.showinfo('Alert','Choose User Type and Try Again.')
 
 
 def clear():
@@ -106,7 +113,8 @@ def clear():
 
 def register():
     t.destroy()
-    os.system('python registration_page.py')
+    import subprocess
+    subprocess.call("python registration_page.py")
     return
 
 def close():
@@ -120,10 +128,12 @@ def close():
     sys.exit()
     return
 
-OptionList=['Police','Civilian']
+OptionList=['POLICE','CIVILIAN']
 v = tk.StringVar(t)
 v.set('Select User Type'.upper())
 opt = tk.OptionMenu(t, v, *OptionList)
+menu = t.nametowidget(opt.menuname)
+menu.config(font=tkFont.Font(family="Times New Roman", size=18))
 
 fing=tkFont.Font(family="Times New Roman", size=16)
 opt.configure(relief="solid",font=tkFont.Font(family="Times New Roman", size=20))

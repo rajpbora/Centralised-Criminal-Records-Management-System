@@ -28,8 +28,9 @@ def civ_home(id):
 
     def enter_profile():
         t.destroy()
+        #print(temp[0])
+        #print(temp2[0])
         display_details(temp[0],temp2[0])
-        #os.system('python disp_profile.py')
         return
     def complaint():
         t.destroy()
@@ -53,7 +54,8 @@ def civ_home(id):
         cursor.execute("UPDATE CIVILIAN1 set LASTLOGIN=? where USERID=?", (b,id))
         connection.commit()
         t.destroy()
-        os.system('python login_page_first.py')
+        import subprocess
+        subprocess.call('python login_page_first.py')
 
     def lastlogin():
         q = cursor.execute("SELECT LASTLOGIN, FNAME FROM CIVILIAN1 where USERID=?", (id,))
@@ -65,12 +67,12 @@ def civ_home(id):
 
 
     name=Label(t, text=temp[0][2].upper()+' '+temp[0][3].upper()+' '+temp[0][4].upper(), fg='grey',font=tkFont.Font(family="Times New Roman", size=40), borderwidth=2, relief="solid")
-    profile=Button(t, text='YOUR PROFILE'.upper(), font=tkFont.Font(family="Times New Roman", size=16),command=enter_profile, borderwidth=2, relief="solid")
-    complain=Button(t, text='REGISTER COMPLAINT'.upper(), command=complaint, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
-    track=Button(t, text='TRACK COMPLAINT STATUS'.upper(), command=status, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
-    view=Button(t, text='VIEW DATA'.upper(), command=data_analysis, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
-    logout=Button(t, text='LOGOUT '.upper(), command=logout, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
-    lastlog=Button(t, text='LASTLOGIN ', command=lastlogin, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
+    profile=Button(t, text='YOUR PROFILE'.upper(), font=tkFont.Font(family="Times New Roman", size=20),command=enter_profile, borderwidth=2, relief="solid")
+    complain=Button(t, text='REGISTER COMPLAINT'.upper(), command=complaint, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=20))
+    track=Button(t, text='TRACK COMPLAINT STATUS'.upper(), command=status, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=20))
+    view=Button(t, text='VIEW DATA'.upper(), command=data_analysis, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=20))
+    logout=Button(t, text='LOGOUT '.upper(), command=logout, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=20))
+    lastlog=Button(t, text='LAST LOGIN ', command=lastlogin, borderwidth=2, relief="solid", font=tkFont.Font(family="Times New Roman", size=20))
 
     name.place(x=0, y=90, width=w, height=100)
     profile.place(x=950, y=300, width=400, height=100)

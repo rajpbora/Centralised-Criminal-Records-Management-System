@@ -12,7 +12,7 @@ connection = sqlite3.connect('NCD.db')
 cursor = connection.cursor()
 
 def bargraph():
-    k = cursor.execute("SELECT COUNT(CLOSEDATE) FROM CASE1")
+    k = cursor.execute("SELECT COUNT(CLOSEDATE) FROM CASE1 WHERE CLOSEDATE <> 'yyyy-mm-dd'")
     p = k.fetchall()
     kkk = cursor.execute("SELECT COUNT(CASENO) FROM CASE1 ")
     ppp = kkk.fetchall()
@@ -25,7 +25,7 @@ def bargraph():
     plt.show()
 
 def bargraph2(j):
-    k = cursor.execute("SELECT COUNT(CLOSEDATE) FROM CASE1 NATURAL JOIN CASE2 WHERE CASE1.CASENO=CASE2.CASENO AND POLICEID=?",(j,))
+    k = cursor.execute("SELECT COUNT(CLOSEDATE) FROM CASE1 NATURAL JOIN CASE2 WHERE CASE1.CASENO=CASE2.CASENO AND POLICEID=?  AND CASE1.CLOSEDATE <> 'yyyy-mm-dd'",(j,))
     p = k.fetchall()
     kkk = cursor.execute("SELECT COUNT(CASENO) FROM CASE1 NATURAL JOIN CASE2 WHERE CASE1.CASENO=CASE2.CASENO AND POLICEID=?",(j,))
     ppp=kkk.fetchall()
@@ -42,6 +42,7 @@ def linegraph(b,c):
     from datetime import datetime as dt
     p = dt.strptime(b, "%Y-%m-%d")
     q = dt.strptime(c, "%Y-%m-%d")
+    print('p: ',p,'\nq: ',q)
     cursor.execute("SELECT OPENDATE FROM CASE1")
     l=[]
     for rows in cursor.fetchall():

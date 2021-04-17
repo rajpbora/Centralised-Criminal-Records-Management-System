@@ -16,17 +16,17 @@ def chdate1(wi):
     t2.place(x=50, y=280, width=150, height=70)
     dayOptionList=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
     d = tk.IntVar(t)
-    d.set('Day')
+    d.set('dd')
     day = tk.OptionMenu(t, d, *dayOptionList)
     monthOptionList=[1,2,3,4,5,6,7,8,9,10,11,12]
     mth = tk.IntVar(t)
-    mth.set('Month')
+    mth.set('mm')
     month = tk.OptionMenu(t, mth, *monthOptionList)
     yearOptionList=[]
-    for i in range(1990,2020):
+    for i in range(2000,2020):
         yearOptionList.append(i)
     y = tk.IntVar(t)
-    y.set('Year')
+    y.set('yyyy')
     year = tk.OptionMenu(t, y, *yearOptionList)
 
     day.place(x=250, y=180, width=150, height=70)
@@ -34,13 +34,13 @@ def chdate1(wi):
     year.place(x=650, y=180, width=150, height=70)
 
     d2 = tk.IntVar(t)
-    d2.set('Day')
+    d2.set('dd')
     day2 = tk.OptionMenu(t, d2, *dayOptionList)
     mth2 = tk.IntVar(t)
-    mth2.set('Month')
+    mth2.set('mm')
     month2 = tk.OptionMenu(t, mth2, *monthOptionList)
     y2 = tk.IntVar(t)
-    y2.set('Year')
+    y2.set('yyyy')
     year2 = tk.OptionMenu(t, y2, *yearOptionList)
 
 
@@ -60,6 +60,28 @@ def chdate1(wi):
     def next():
         a,b='',''
         try:
+
+            sd,sm,sy = d.get(),mth.get(),y.get()
+            ed,em,ey = d2.get(),mth2.get(),y2.get()
+
+            if(ey>sy):
+                pass
+            elif (ey==sy):
+                if(em>sm):
+                    pass
+                elif (em==sm):
+                    if(ed>sd):
+                        pass
+                    else:
+                        tkinter.messagebox.showinfo('Alert','From Date must be less than To Date')
+                        return
+                else:
+                    tkinter.messagebox.showinfo('Alert','From Date must be less than To Date')
+                    return
+            else:
+                tkinter.messagebox.showinfo('Alert','From Date must be less than To Date')
+                return
+
             a = str(y.get())+'-'+str(mth.get())+'-'+str(d.get())
             b = str(y2.get())+'-'+str(mth2.get())+'-'+str(d2.get())
             #if mth.get()==2 and d.get()>29:
@@ -72,15 +94,15 @@ def chdate1(wi):
             linegraph(b,a)
             
 
-    submit = Button(t, text='SUBMIT', command=next, borderwidth=4, relief="solid",font=tkFont.Font(family="Times New Roman", size=20))
-    submit.place(x=400, y=400, width=200, height=70)
-
+    submit = Button(t, text='SUBMIT', command=next, borderwidth=4, relief="solid",font=tkFont.Font(family="Times New Roman", size=16))
+    submit.place(x=350, y=400, width=150, height=50)
     def back():
         t.destroy()
         from constable_home import const_home
         const_home(wi)
 
-    back = Button(t, text='<--', command=back, borderwidth=4, relief="solid",font=tkFont.Font(family="Times New Roman", size=18))
+
+    back = Button(t, text='<--', command=back, borderwidth=4, relief="solid")
     back.place(x=20, y=20, width=50, height=30)
 
     t.mainloop()

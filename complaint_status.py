@@ -35,14 +35,14 @@ def stat(id):
 
 	compno=Label(t, text='Enter Complaint Number', font=tkFont.Font(family="Times New Roman", size=30), borderwidth=2, relief="solid")
 	number=Entry(t,font=tkFont.Font(family="Times New Roman", size=30), borderwidth=2, relief="solid")
-	track=Button(t, text='Track Status',font=tkFont.Font(family="Times New Roman", size=30), command=track_status, borderwidth=2, relief="solid")
+	track=Button(t, text='TRACK STATUS',font=tkFont.Font(family="Times New Roman", size=16), command=track_status, borderwidth=4, relief="solid")
 
-	compno.place(x=450, y=50, width=600, height=70)
-	number.place(x=550, y=200, width=400, height=70)
-	track.place(x=625, y=350, width=250, height=70)
+	compno.place(x=450, y=70, width=600, height=70)
+	number.place(x=550, y=250, width=400, height=70)
+	track.place(x=625, y=400, width=250, height=70)
 
 
 
-	goback=Button(t, text='GO BACK',command=goback, font=tkFont.Font(family="Times New Roman", size=16), borderwidth=4, relief="solid").place(x=50,y=600,width=150,height=70)
+	goback=Button(t, text='<--',command=goback,  borderwidth=4, relief="solid").place(x=20, y=20, width=50, height=30)
 
 	mainloop()

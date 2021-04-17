@@ -10,20 +10,20 @@ from add_case import*
 
 def wii(p):
     root = tk.Tk()
-    w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-    root.geometry("%dx%d+0+0" % (w, h))
+    root.geometry('600x400')
     root.title("ADD DATA")
 
-    fing = tkFont.Font(family="Times New Roman", size=20)
-    fins = tkFont.Font(family="Times New Roman", size=10)
-    finm = tkFont.Font(family="Times New Roman", size=16)
+    # fing = tkFont.Font(family="Times New Roman", size=20)
+    # fins = tkFont.Font(family="Times New Roman", size=10)
 
     OptionList = ['CRIMINAL', 'CASE', 'FIR']
     v = tk.StringVar(root)
     v.set('ADD BY')
     opti = tk.OptionMenu(root, v, *OptionList)
-    opti.place(x=615, y=300, width=350, height=80)
-    opti.configure(font=finm, relief="solid")
+    opti.place(x=200, y=100, width=200, height=70)
+    opti.configure(relief="solid", font=tkFont.Font(family="Times New Roman", size=16))
+    menu = root.nametowidget(opti.menuname)
+    menu.config(font=tkFont.Font(family="Times New Roman", size=10))
 
     def nex():
         if v.get() == 'FIR':
@@ -43,7 +43,9 @@ def wii(p):
         from acp_home import acp_home
         acp_home(p)
 
-    submit = Button(root, text='Submit',font=fing, command=nex, borderwidth=2, relief="solid")
-    submit.place(x=680, y=450, width=200, height=70)
-    back_button = Button(root, text='BACK', command=back,font=fins, borderwidth=2, relief="solid", width=10, height=2).place(x=50, y=50)
+    submit = Button(root, text='SUBMIT',font=tkFont.Font(family="Times New Roman", size=16), command=nex, borderwidth=4, relief="solid")
+    submit.place(x=200, y=200, width=200, height=50)
+    back = Button(root, text='<--', command=back, borderwidth=4, relief="solid")
+    back.place(x=20, y=20, width=50, height=30)
+
     mainloop()
