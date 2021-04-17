@@ -5,6 +5,8 @@ Run login_page_first.py file.
 
 Minimum System Requirements:
 Display Screen : 1500x800
+
 Software Requirement:
 Python 3.x
+SQLite2
 
